@@ -17,7 +17,7 @@ public interface ICampgroundService {
 	  Campground updateCampground(
 		      final String campgroundId, final Campground campgroundPayload);
 	   Campground validateUserCampgroundAndGet(String campgroundId) ;
-
+List<Campground> getByAuthor(String name);
 
 		  void deleteCampground(final String campgroundId);
 

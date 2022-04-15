@@ -153,4 +153,10 @@ public class CampgroundServiceImpl implements ICampgroundService {
         });
 	    campgroundRepository.delete(foundCampgroundDocument);
 	  }
+	@Override
+	public List<Campground> getByAuthor(String author) {
+		User u=userService.getUserByUsername(author);
+		List<Campground> list= campgroundRepository.findByAuthor(u.getId());
+		return list;
+	}
 }

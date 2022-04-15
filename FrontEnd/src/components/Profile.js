@@ -14,6 +14,7 @@ const Profile = () => {
   const params = useParams();
   const userId = params.userId;
   console.log(userId);
+  const campgrounds = useSelector((state) => state.campgrounds.campgrounds);
   const { email, username } = currentUser;
   //change password
   const [changePassword, setChangePassword] = React.useState({
@@ -22,6 +23,7 @@ const Profile = () => {
   });
   const dispatch = useDispatch();
   const [show, setShow] = React.useState(false);
+  const [see, setsee] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const onChangePassword = (e) => {
     setChangePassword({
@@ -29,6 +31,22 @@ const Profile = () => {
       [e.target.name]: e.target.value,
     });
   };
+  function searchByAuthorHandler(event) {
+    event.preventDefault();
+    dispatch(allCampgrounds.setLoading(true));
+    setsee(true);
+    UserService.getByAuthor(currentUser.username)
+      .then((result) => {
+        dispatch(allCampgrounds.addAllCampground(result.data));
+        console.log(campgrounds);
+      })
+      .catch((error) => {
+        dispatch(allCampgrounds.addAllCampground({}));
+        console.log(error);
+      });
+
+    dispatch(allCampgrounds.setLoading(false));
+  }
   const onSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
@@ -140,6 +158,37 @@ const Profile = () => {
                           Change Password
                         </button>
                       </form>
+                    </div>
+                  </div>
+                )}
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                {!see && (
+                  <button
+                    className="btn btn-primary "
+                    onClick={searchByAuthorHandler}
+                  >
+                    View your campgrounds
+                  </button>
+                )}
+                {see && (
+                  <div>
+                    <button
+                      className="btn my-3 btn-sm btn-primary"
+                      onClick={() => setsee(!see)}
+                      type="button"
+                    >
+                      hide
+                    </button>
+
+                    <div>
+                      {!campgrounds.length && "No campgrounds found"}
+                      {campgrounds.length &&
+                        campgrounds.map((camp, i) => (
+                          <Link to={"/campgrounds/" + camp.id} key={i}>
+                            {camp.title}
+                            <br />
+                          </Link>
+                        ))}
                     </div>
                   </div>
                 )}

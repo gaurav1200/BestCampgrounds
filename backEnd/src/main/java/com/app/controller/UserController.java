@@ -1,7 +1,7 @@
 package com.app.controller;
 
 import javax.validation.Valid;
-
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.exception.BestCampException;
 import com.app.exception.RequestValidationException;
+import com.app.model.Campground;
 import com.app.model.Image;
 import com.app.model.Role;
 import com.app.model.RoleEnum;
@@ -23,6 +24,7 @@ import com.app.payload.ChangePassPayload;
 import com.app.payload.MessageResponse;
 import com.app.payload.SignUpRequest;
 import com.app.repository.UserRepository;
+import com.app.services.ICampgroundService;
 import com.app.services.IImageService;
 import com.app.services.IUserService;
 
@@ -37,7 +39,7 @@ public class UserController {
 private final IUserService userService;
 private final PasswordEncoder passwordEncoder;
 private final UserRepository userRepository;
-
+private final ICampgroundService campgroundService;
 
 
 @GetMapping("/id/{id}")
@@ -47,7 +49,11 @@ public ResponseEntity<User> getById(@PathVariable("id") final String id){
 	  return ResponseEntity.ok().body(userService.getUserById(id));
 	 
 }
-
+@GetMapping("/viewyourcamps/{username}")
+public ResponseEntity<List<Campground>> getByCity(@PathVariable("username") final String username){
+	  System.err.println("in getby authername");
+	  return ResponseEntity.ok().body(campgroundService.getByAuthor(username));
+}
 
 @PostMapping("/changePass/{id}")
 

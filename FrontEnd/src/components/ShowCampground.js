@@ -136,7 +136,23 @@ const ShowCampground = (props) => {
           </Col>
 
           <Col>
-            {/*<div id="map"></div>*/}
+            <div id="map">
+              <iframe
+                width="500"
+                height="350"
+                allowfullsreen
+                referrerpolicy="no-referrer-when-downgrade"
+                src={
+                  "https://www.google.com/maps/embed/v1/place?key=AIzaSyCI5t91a_b1NOPpsdEV-DZOfw9I2tZM6lk&q=" +
+                  campground.city +
+                  "," +
+                  campground.state +
+                  "," +
+                  campground.country
+                }
+              ></iframe>
+            </div>
+
             {currentUser && <ReviewForm campgroundId={campgroundId} />}
 
             {campground.reviews && campground.reviews.length > 0

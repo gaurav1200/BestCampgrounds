@@ -17,5 +17,10 @@ class UserServices {
       headers: authHeader(),
     });
   }
+  getByAuthor(username) {
+    return axios.get(USER_API_BASE_URL + "/users/viewyourcamps/" + username, {
+      headers: authHeader(),
+    });
+  }
 }
 export default new UserServices();

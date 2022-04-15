@@ -20,4 +20,6 @@ public interface CampgroundRepository extends MongoRepository<Campground, String
 	List<Campground> findByCountry(String country);
 	@Query("{ 'name' : { $regex: ?0 } }")
 	List<Campground> findByRegexpName(String regexp);
+@Query("{'author' : ?0}")
+	List<Campground> findByAuthor(String author);
 }
