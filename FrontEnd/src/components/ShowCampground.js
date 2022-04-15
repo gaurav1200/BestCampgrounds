@@ -26,6 +26,7 @@ const ShowCampground = (props) => {
   const userAuthor = useSelector((state) => state.user.user);
   console.log(campground);
   const params = useParams();
+  const [show, setShow] = useState(false);
   const campgroundId = params.campgroundId;
   console.log(campgroundId);
   const dispatch = useDispatch();
@@ -136,23 +137,37 @@ const ShowCampground = (props) => {
           </Col>
 
           <Col>
-            <div id="map">
-              <iframe
-                width="500"
-                height="350"
-                allowfullsreen
-                referrerpolicy="no-referrer-when-downgrade"
-                src={
-                  "https://www.google.com/maps/embed/v1/place?key=AIzaSyCI5t91a_b1NOPpsdEV-DZOfw9I2tZM6lk&q=" +
-                  campground.city +
-                  "," +
-                  campground.state +
-                  "," +
-                  campground.country
-                }
-              ></iframe>
-            </div>
-
+            {show && (
+              <div id="map">
+                <iframe
+                  width="500"
+                  height="350"
+                  allowfullsreen
+                  referrerpolicy="no-referrer-when-downgrade"
+                  src={
+                    "https://www.google.com/maps/embed/v1/place?key=AIzaSyCI5t91a_b1NOPpsdEV-DZOfw9I2tZM6lk&q=" +
+                    campground.city +
+                    "," +
+                    campground.state +
+                    "," +
+                    campground.country
+                  }
+                ></iframe>
+              </div>
+            )}
+            {!show && (
+              <div className="btn btn-primary" onClick={() => setShow(!show)}>
+                Show Map
+              </div>
+            )}
+            {show && (
+              <div
+                className="btn btn-primary my-3"
+                onClick={() => setShow(!show)}
+              >
+                Hide Map
+              </div>
+            )}
             {currentUser && <ReviewForm campgroundId={campgroundId} />}
 
             {campground.reviews && campground.reviews.length > 0
