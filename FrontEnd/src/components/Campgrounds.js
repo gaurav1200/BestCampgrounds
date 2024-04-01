@@ -59,11 +59,14 @@ const Campgrounds = () => {
           </div>
         </div>
       ) : (
-        <Pages
-          RenderComponent={SingleCamp}
-          pageLimit={pageLimit}
-          dataLimit={5}
-        />
+        campgrounds.map((campground) => (
+          <SingleCamp key={campground.id} campground={campground} />
+        ))
+        // <Pages
+        //   RenderComponent={SingleCamp}
+        //   pageLimit={pageLimit}
+        //   dataLimit={5}
+        // />
         // <CampgroundAll campgrounds={campgrounds} />
       )}
       <Footer></Footer>

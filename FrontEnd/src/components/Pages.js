@@ -60,6 +60,7 @@ function Pages(props) {
           )
         )}
         {/* next button */}
+        <Pagination.Ellipsis />
         <Pagination.Next
           onClick={goToNextPage}
           disabled={currentPage === pages}
@@ -92,6 +93,7 @@ function Pages(props) {
           )
         )}
         {/* next button */}
+        <Pagination.Ellipsis />
         <Pagination.Next
           onClick={goToNextPage}
           disabled={currentPage === pages}
