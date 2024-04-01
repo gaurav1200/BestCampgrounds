@@ -1,6 +1,7 @@
 import axios from "axios";
 import authHeader from "./authHeader";
-const USER_API_BASE_URL = "http://localhost:9090/campgrounds/id/";
+const USER_SERVER_BASE_URL = process.env.REACT_APP_SERVER_URL;
+const USER_API_BASE_URL = `${USER_SERVER_BASE_URL}/campgrounds/id/`;
 class ReviewService {
   createReview(review, campgroundId) {
     return axios.post(USER_API_BASE_URL + campgroundId + "/reviews", review, {

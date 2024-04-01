@@ -1,7 +1,7 @@
 //import httpClient from "../http-common";
 import axios from "axios";
 
-const USER_API_BASE_URL = "http://localhost:9090";
+const USER_API_BASE_URL = process.env.REACT_APP_SERVER_URL;
 
 class AuthServices {
   fetchUserByLoginrequest(loginRequest) {

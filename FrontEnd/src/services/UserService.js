@@ -1,6 +1,6 @@
 import axios from "axios";
 import authHeader from "./authHeader";
-const USER_API_BASE_URL = "http://localhost:9090";
+const USER_API_BASE_URL = process.env.REACT_APP_SERVER_URL;
 class UserServices {
   getUserById(id) {
     return axios.get(USER_API_BASE_URL + "/users/id/" + id, {
