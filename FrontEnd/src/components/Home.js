@@ -44,12 +44,12 @@ export default class Home extends React.Component {
               dolor minima sit repellat, sequi eum accusantium ad voluptates
               unde aliquam laboriosam.
             </p>
-            <a
-              href="/campgrounds/all"
+            <Link
+              to="/campgrounds/all"
               className="btn btn-lg btn-secondary font-weight-bold bg-white"
             >
               View Campgrounds
-            </a>
+            </Link>
           </main>
           <footer className="mt-auto text-white-50">
             © Sep 2021 IACSD Pune Students, Best Campgrounds CDAC Project, INDIA
