@@ -19,8 +19,29 @@ import UploadImages from "./components/UploadImages";
 import Profile from "./components/Profile";
 import ManageImages from "./components/ManageImages";
 import UploadProfileImage from "./components/UploadProfileImage";
-
+import { useEffect } from "react";
+import axios from "axios";
+const visitEndpoint = process.env.REACT_APP_VISIT_API_ENDPOINT;
 function App() {
+  useEffect(() => {
+    if (sessionStorage.getItem("visit")) {
+      console.log("visited");
+    } else {
+      const data = {
+        webSiteName: "bestcampgrounds",
+        count: 1,
+      };
+      axios
+        .post(`${visitEndpoint}/visit`, { data })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+    sessionStorage.setItem("visit", true);
+  }, []);
   return (
     <div>
       <Router history={history}>

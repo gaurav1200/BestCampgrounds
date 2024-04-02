@@ -39,10 +39,11 @@ export default class Home extends React.Component {
             <h1>BestCampgrounds</h1>
             <p className="lead">
               Welcome to Best Campgrounds <br />
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora
-              ipsa quibusdam nihil atque architecto ea dolore optio mollitia
-              dolor minima sit repellat, sequi eum accusantium ad voluptates
-              unde aliquam laboriosam.
+              Campgrounds are a great way to spend time with family and friends.
+              View campgrounds from all over the world and visit the campgrounds
+              you find interesting, also Add your own campgrounds to share with
+              the community and add reviews for the campgrounds you have
+              visited.
             </p>
             <Link
               to="/campgrounds/all"
