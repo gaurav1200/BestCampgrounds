@@ -75,25 +75,25 @@ export default class Footer extends React.Component {
           <div className="copyright">
             <div className="pt-4">
               <div className="d-flex justify-content-center">
-                <a href="/aboutus" className="nav-link">
+                <Link to="/aboutus" className="nav-link">
                   <h6 className="nameColor">About Us</h6>
-                </a>
+                </Link>
 
-                <a href="/contactus" className="nav-link">
+                <Link to="/contactus" className="nav-link">
                   <h6 className="nameColor">Contact Us</h6>
-                </a>
+                </Link>
 
-                <a href="/termsnconditions" className="nav-link">
+                <Link to="/termsnconditions" className="nav-link">
                   <h6 className="nameColor">Terms & Conditions</h6>
-                </a>
+                </Link>
 
-                <a href="/privacypolicy" className="nav-link">
+                <Link to="/privacypolicy" className="nav-link">
                   <h6 className="nameColor">Privacy Policy</h6>
-                </a>
+                </Link>
 
-                <a href="/faqs" className="nav-link">
+                <Link to="/faqs" className="nav-link">
                   <h6 className="nameColor">FAQs</h6>
-                </a>
+                </Link>
               </div>
               <div className="mt-auto d-flex justify-content-center text-black-50">
                 © Sep 2021 IACSD Pune Students, Best Campgrounds CDAC Project,
