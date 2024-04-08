@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import "mapbox-gl/dist/mapbox-gl.css";
-
+import MapboxWorker from "mapbox-gl/dist/mapbox-gl-csp-worker";
 import mapboxgl from "mapbox-gl";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
-
+mapboxgl.workerClass = MapboxWorker;
 const center = {
   latitude: 7.2905715, // default latitude
   longitude: 80.6337262, // default longitude
@@ -48,7 +48,7 @@ function ShowMap({ campgrounds }) {
       setLng(center.lng);
       setZoom(1);
     }
-    console.log(process.env.REACT_APP_MAPBOX_TOKEN);
+
     const campgroundsString = { type: "FeatureCollection", features: [] };
     for (let camp of campgrounds) {
       campgroundsString.features.push({

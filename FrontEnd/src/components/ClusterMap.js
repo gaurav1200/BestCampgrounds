@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import "mapbox-gl/dist/mapbox-gl.css";
+import MapboxWorker from "mapbox-gl/dist/mapbox-gl-csp-worker";
 import { useNavigate } from "react-router-dom";
 import mapboxgl from "mapbox-gl";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
+mapboxgl.workerClass = MapboxWorker;
 const center = {
   latitude: 7.2905715, // default latitude
   longitude: 80.6337262, // default longitude
@@ -43,7 +45,6 @@ function ClusterMap({ campgrounds }) {
       });
     }
 
-    console.log(campgroundsString);
     if (!map.current) {
       // initialize map only once
       map.current = new mapboxgl.Map({
