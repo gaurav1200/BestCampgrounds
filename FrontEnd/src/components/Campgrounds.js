@@ -1,6 +1,5 @@
 import React from "react";
 
-import Pages from "../components/Pages";
 import { allCampgrounds } from "../store/index";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "./Navbar";
@@ -9,6 +8,7 @@ import SingleCamp from "./SingleCamp";
 import CampgroundSevices from "../services/CampgroundSevices";
 import Flash from "../message/Flash";
 import Footer from "./Footer";
+import ClusterMap from "./ClusterMap";
 
 const Campgrounds = () => {
   const dispatch = useDispatch();
@@ -45,6 +45,11 @@ const Campgrounds = () => {
     <div>
       <Navbar />
       <Flash />
+      {campgrounds?.length > 0 && (
+        <div className="ml-10 d-none d-sm-block">
+          <ClusterMap campgrounds={campgrounds} />
+        </div>
+      )}
       <SearchBoxes />
       <h1>All Campgrounds</h1>
       {!loading && campgrounds.length === 0 && <h2>No Campgrounds Found</h2>}

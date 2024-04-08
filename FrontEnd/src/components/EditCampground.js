@@ -8,12 +8,6 @@ import Footer from "./Footer";
 
 const EditCampground = () => {
   const camp = useSelector((state) => state.camp.campground);
-  const title = useSelector((state) => state.campground.title);
-  const city = useSelector((state) => state.campground.city);
-  const state = useSelector((state) => state.campground.state);
-  const country = useSelector((state) => state.campground.country);
-  const price = useSelector((state) => state.campground.price);
-  const description = useSelector((state) => state.campground.description);
 
   const params = useParams();
   const campgroundId = params.campgroundId;

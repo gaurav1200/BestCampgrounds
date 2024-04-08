@@ -20,6 +20,7 @@ import {
 } from "react-bootstrap";
 import Flash from "../message/Flash";
 import Footer from "./Footer";
+import ShowMap from "./ShowMap";
 
 const ShowCampground = (props) => {
   const campground = useSelector((state) => state.camp.campground);
@@ -138,21 +139,24 @@ const ShowCampground = (props) => {
 
           <Col>
             {show && (
+              // <div id="map">
+              //   <iframe
+              //     width="500"
+              //     height="350"
+              //     allowfullsreen
+              //     referrerpolicy="no-referrer-when-downgrade"
+              //     src={
+              //       "https://www.google.com/maps/embed/v1/place?key=AIzaSyCI5t91a_b1NOPpsdEV-DZOfw9I2tZM6lk&q=" +
+              //       campground.city +
+              //       "," +
+              //       campground.state +
+              //       "," +
+              //       campground.country
+              //     }
+              //   ></iframe>
+              // </div>
               <div id="map">
-                <iframe
-                  width="500"
-                  height="350"
-                  allowfullsreen
-                  referrerpolicy="no-referrer-when-downgrade"
-                  src={
-                    "https://www.google.com/maps/embed/v1/place?key=AIzaSyCI5t91a_b1NOPpsdEV-DZOfw9I2tZM6lk&q=" +
-                    campground.city +
-                    "," +
-                    campground.state +
-                    "," +
-                    campground.country
-                  }
-                ></iframe>
+                <ShowMap campgrounds={[campground]} />
               </div>
             )}
             {!show && (

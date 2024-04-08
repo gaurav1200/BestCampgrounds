@@ -2,11 +2,8 @@ import React from "react";
 import "./Home.css";
 import AuthServices from "../services/AuthServices";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { rootReducerAction } from "../store/index";
-const LogoutButton = () => {
-  const dispatch = useDispatch();
 
+const LogoutButton = () => {
   const logout = () => {
     AuthServices.logoutRequest();
   };

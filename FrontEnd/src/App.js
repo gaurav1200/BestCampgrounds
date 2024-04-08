@@ -22,6 +22,7 @@ import UploadProfileImage from "./components/UploadProfileImage";
 import { useEffect } from "react";
 import axios from "axios";
 const visitEndpoint = process.env.REACT_APP_VISIT_API_ENDPOINT;
+console.log(visitEndpoint);
 function App() {
   useEffect(() => {
     if (sessionStorage.getItem("visit")) {
