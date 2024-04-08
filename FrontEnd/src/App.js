@@ -5,7 +5,7 @@ import Home from "./components/Home";
 import Campgrounds from "./components/Campgrounds";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
-
+import { allCampgrounds } from "./store/index";
 import AboutUs from "./other/AboutUs";
 import ContactUs from "./other/ContactUs";
 import TermAndConditions from "./other/TermAndCondition";
@@ -21,9 +21,17 @@ import ManageImages from "./components/ManageImages";
 import UploadProfileImage from "./components/UploadProfileImage";
 import { useEffect } from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import CampgroundSevices from "./services/CampgroundSevices";
 const visitEndpoint = process.env.REACT_APP_VISIT_API_ENDPOINT;
-console.log(visitEndpoint);
+
 function App() {
+  const dispatch = useDispatch();
+  // const [campgrounds, setCampgrounds] = React.useState([]);
+  const campgrounds = useSelector((state) => state.campgrounds.campgrounds);
+  console.log(campgrounds);
+  const loading = useSelector((state) => state.campgrounds.loading);
+
   useEffect(() => {
     if (sessionStorage.getItem("visit")) {
       console.log("visited");
@@ -42,7 +50,54 @@ function App() {
         });
     }
     sessionStorage.setItem("visit", true);
-  }, []);
+    if (campgrounds.length === 0) {
+      dispatch(allCampgrounds.setLoading(true));
+    }
+    if (campgrounds.length === 0 || loading !== true) {
+      CampgroundSevices.getCampgrounds()
+        .then((response) => {
+          if (response.status == 200) return response.data;
+          throw new Error("something went wrong while requesting ");
+          // dispatch(allCampgrounds.addAllCampground(result.data));
+          // console.log(campgrounds);
+          // dispatch(allCampgrounds.setLoading(false));
+          // console.log(campgrounds);
+        })
+        .then((data) => {
+          console.log(data);
+          dispatch(allCampgrounds.addAllCampground(data));
+          dispatch(allCampgrounds.setLoading(false));
+        })
+        .catch((error) => {
+          console.log(error);
+          dispatch(allCampgrounds.setLoading(false));
+        });
+    }
+  }, [dispatch]);
+  // React.useEffect(() => {
+  //   console.log("useEffect");
+  //   if (campgrounds.length === 0) {
+  //     dispatch(allCampgrounds.setLoading(true));
+  //   }
+  //   CampgroundSevices.getCampgrounds()
+  //     .then((response) => {
+  //       if (response.status == 200) return response.data;
+  //       throw new Error("something went wrong while requesting ");
+  //       // dispatch(allCampgrounds.addAllCampground(result.data));
+  //       // console.log(campgrounds);
+  //       // dispatch(allCampgrounds.setLoading(false));
+  //       // console.log(campgrounds);
+  //     })
+  //     .then((data) => {
+  //       console.log(data);
+  //       dispatch(allCampgrounds.addAllCampground(data));
+  //       dispatch(allCampgrounds.setLoading(false));
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       dispatch(allCampgrounds.setLoading(false));
+  //     });
+  // }, [dispatch]);
   return (
     <div>
       <Router history={history}>

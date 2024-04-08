@@ -9,6 +9,7 @@ import CampgroundSevices from "../services/CampgroundSevices";
 import Flash from "../message/Flash";
 import Footer from "./Footer";
 import ClusterMap from "./ClusterMap";
+import Pages from "./Pages";
 
 const Campgrounds = () => {
   const dispatch = useDispatch();
@@ -20,25 +21,29 @@ const Campgrounds = () => {
   const pageLimit = Math.ceil(campgrounds.length / 5);
   React.useEffect(() => {
     console.log("useEffect");
-    dispatch(allCampgrounds.setLoading(true));
-    CampgroundSevices.getCampgrounds()
-      .then((response) => {
-        if (response.status == 200) return response.data;
-        throw new Error("something went wrong while requesting ");
-        // dispatch(allCampgrounds.addAllCampground(result.data));
-        // console.log(campgrounds);
-        // dispatch(allCampgrounds.setLoading(false));
-        // console.log(campgrounds);
-      })
-      .then((data) => {
-        console.log(data);
-        dispatch(allCampgrounds.addAllCampground(data));
-        dispatch(allCampgrounds.setLoading(false));
-      })
-      .catch((error) => {
-        console.log(error);
-        dispatch(allCampgrounds.setLoading(false));
-      });
+    if (campgrounds.length === 0) {
+      dispatch(allCampgrounds.setLoading(true));
+    }
+    if (loading !== true && campgrounds.length === 0) {
+      CampgroundSevices.getCampgrounds()
+        .then((response) => {
+          if (response.status == 200) return response.data;
+          throw new Error("something went wrong while requesting ");
+          // dispatch(allCampgrounds.addAllCampground(result.data));
+          // console.log(campgrounds);
+          // dispatch(allCampgrounds.setLoading(false));
+          // console.log(campgrounds);
+        })
+        .then((data) => {
+          console.log(data);
+          dispatch(allCampgrounds.addAllCampground(data));
+          dispatch(allCampgrounds.setLoading(false));
+        })
+        .catch((error) => {
+          console.log(error);
+          dispatch(allCampgrounds.setLoading(false));
+        });
+    }
   }, [dispatch]);
 
   return (
@@ -55,7 +60,11 @@ const Campgrounds = () => {
       {!loading && campgrounds.length === 0 && <h2>No Campgrounds Found</h2>}
 
       {loading ? (
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center gap-4">
+          <div className="d-block">
+            Please Wait loading campgrounds <br />
+          </div>
+
           <div
             className="spinner-border d-flex justify-content-center"
             role="status"
