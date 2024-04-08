@@ -13,8 +13,8 @@ const center = {
 function ShowMap({ campgrounds }) {
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const [lng, setLng] = useState();
-  const [lat, setLat] = useState();
+  const [lng, setLng] = useState(10.65971);
+  const [lat, setLat] = useState(49.28999);
   const [zoom, setZoom] = useState(9);
   const [mapContainerStyle, setMapContainerStyle] = useState({
     width: "500px",
@@ -22,8 +22,13 @@ function ShowMap({ campgrounds }) {
   });
 
   useEffect(() => {
+    if (campgrounds.length === 0) {
+      return;
+    }
     center.latitude = campgrounds[0].geometry.lat;
     center.longitude = campgrounds[0].geometry.lng;
+    setLat(center.latitude);
+    setLng(center.longitude);
     center.zoom = 3.5;
     setMapContainerStyle({
       width: "500px",
@@ -35,7 +40,7 @@ function ShowMap({ campgrounds }) {
       map.current = new mapboxgl.Map({
         container: mapContainer.current,
         style: "mapbox://styles/mapbox/streets-v12",
-        center: [lng, lat],
+        center: [campgrounds[0].geometry.lng, campgrounds[0].geometry.lat],
         zoom: 2.5,
       });
 
@@ -43,7 +48,7 @@ function ShowMap({ campgrounds }) {
 
       campgrounds.forEach((campground) => {
         new mapboxgl.Marker()
-          .setLngLat([lng, lat])
+          .setLngLat([campgrounds[0].geometry.lng, campgrounds[0].geometry.lat])
           .setPopup(
             new mapboxgl.Popup({ offset: 25 }).setHTML(
               `<h3>${campground.title}</h3><p>${campground.city}, ${campground.state}, ${campground.country}</p>`
@@ -52,7 +57,7 @@ function ShowMap({ campgrounds }) {
           .addTo(map.current);
       });
     }
-  }, []);
+  }, [lat, lng, zoom, campgrounds]);
 
   return (
     <div className="d-flex position-relative justify-content-center">
