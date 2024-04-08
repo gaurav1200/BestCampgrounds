@@ -1,12 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import "mapbox-gl/dist/mapbox-gl.css";
-import MapboxWorker from "mapbox-gl/dist/mapbox-gl-csp-worker";
 import { useNavigate } from "react-router-dom";
 import mapboxgl from "mapbox-gl";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
-mapboxgl.workerClass = MapboxWorker;
 const center = {
   latitude: 7.2905715, // default latitude
   longitude: 80.6337262, // default longitude
@@ -15,8 +13,8 @@ const center = {
 function ClusterMap({ campgrounds }) {
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const [lng, setLng] = useState(32.57);
-  const [lat, setLat] = useState(77.02);
+  const [lng, setLng] = useState(43.82715019954796);
+  const [lat, setLat] = useState(39.79358829830636);
   const [zoom, setZoom] = useState(2);
 
   useEffect(() => {
@@ -29,8 +27,14 @@ function ClusterMap({ campgrounds }) {
 
     // setLat(77.02);
     // setLng(32.57);
-    setLat(center.lat);
-    setLng(center.lng);
+    setLat(
+      campgrounds.reduce((acc, curr) => acc + curr.geometry.lat, 0) /
+        campgrounds.length
+    );
+    setLng(
+      campgrounds.reduce((acc, curr) => acc + curr.geometry.lng, 0) /
+        campgrounds.length
+    );
     setZoom(2);
 
     const campgroundsString = { type: "FeatureCollection", features: [] };
